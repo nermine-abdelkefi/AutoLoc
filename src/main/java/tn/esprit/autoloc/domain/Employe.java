@@ -1,3 +1,4 @@
+
 package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
@@ -22,4 +23,9 @@ public class Employe {
 
     @Enumerated(EnumType.STRING)
     private RoleEmploye role;
+
+    // Association Employe - Agence
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_agence")
+    private Agence agence;
 }

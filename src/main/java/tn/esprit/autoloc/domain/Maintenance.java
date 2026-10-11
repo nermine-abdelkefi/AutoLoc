@@ -1,3 +1,4 @@
+
 package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
@@ -23,4 +24,9 @@ public class Maintenance {
     private LocalDate dateFin;
 
     private String description;
+
+    // Plusieurs maintenances concernent un véhicule
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_vehicule")
+    private Vehicule vehicule;
 }

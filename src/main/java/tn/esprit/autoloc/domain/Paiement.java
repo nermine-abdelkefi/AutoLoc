@@ -1,3 +1,4 @@
+
 package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
@@ -26,4 +27,9 @@ public class Paiement {
 
     @Enumerated(EnumType.STRING)
     private ModePaiement modePaiement;
+
+    // Association Paiement - Contrat
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_contrat")
+    private Contrat contrat;
 }

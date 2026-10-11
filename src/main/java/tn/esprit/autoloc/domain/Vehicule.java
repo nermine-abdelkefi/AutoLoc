@@ -1,3 +1,4 @@
+
 package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
@@ -7,6 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "vehicule")
@@ -39,4 +44,33 @@ public class Vehicule {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private StatutVehicule statut;
+
+    // Plusieurs véhicules appartiennent à une agence
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_agence")
+    private Agence agence;
+
+    // Un véhicule possède plusieurs maintenances
+    @OneToMany(
+            mappedBy = "vehicule",
+            cascade = CascadeType.PERSIST,
+            fetch = FetchType.LAZY
+    )
+    private List<Maintenance> maintenances = new ArrayList<>();
+
+    // Un véhicule peut avoir plusieurs réservations
+    @OneToMany(
+            mappedBy = "vehicule",
+            fetch = FetchType.LAZY
+    )
+    private List<Reservation> reservations = new ArrayList<>();
+
+    // Plusieurs véhicules peuvent partager plusieurs équipements
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "vehicule_equipement",
+            joinColumns = @JoinColumn(name = "id_vehicule"),
+            inverseJoinColumns = @JoinColumn(name = "id_equipement")
+    )
+    private Set<Equipement> equipements = new HashSet<>();
 }
