@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.autoloc.domain.Contrat;
 import tn.esprit.autoloc.domain.Paiement;
 import tn.esprit.autoloc.domain.ModePaiement;
-import tn.esprit.autoloc.repository.ContratRepository;
+import tn.esprit.autoloc.repository.IContratRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContratCascadeTest {
 
     @Autowired
-    private ContratRepository contratRepository;
+    private IContratRepository contratRepository;
 
     @Autowired
     private EntityManager entityManager;
